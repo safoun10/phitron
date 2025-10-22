@@ -11,7 +11,7 @@ int main()
         scanf("%d", &array[i]);
         if (array[i] > max)
         {
-            max = array[i];
+            max = array[i]; // max check
         }
     }
 
@@ -19,12 +19,12 @@ int main()
     {
         if (array[i] == max)
         {
-            continue;
+            continue; // omits max
         }
         else if (array[i] > runner_up)
         {
-            runner_up = array[i];
-            existence++;
+            runner_up = array[i]; // selects runners up
+            existence++;          // confirms existence
         }
     }
 
@@ -39,4 +39,4 @@ int main()
     return 0;
 }
 
-//unsolved
+// unsolved
