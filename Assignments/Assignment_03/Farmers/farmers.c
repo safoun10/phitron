@@ -3,30 +3,16 @@
 
 int main()
 {
-    double limit, first_men, last_men, days, total_labour = 0.0, result = 0.0;
-    scanf("%lf", &limit);
-
+    int limit;
+    double first_men, add_men, days, total_labour = 0.0, result = 0.0;
+    scanf("%d", &limit);
     for (int i = 1; i <= limit; i++)
     {
-        scanf("%lf %lf %lf", &first_men, &last_men, &days);
-        //////
-
-        total_labour = first_men + last_men;
-
-        result = days - ((first_men * days) / total_labour);
-
-        //////////////
-        if (result < 1 && result != 0.0)
-        {
-            printf("%.0lf\n", 1.0);
-        }
-        else
-        {
-            printf("%.0lf\n", result);
-        }
+        scanf("%lf %lf %lf", &first_men, &add_men, &days);
+        total_labour = first_men + add_men;
+        double new_days = (int)((first_men * days) / total_labour);
+        result = days - new_days;
+        printf("%d\n", (int)result);
     }
-
     return 0;
 }
-
-// unsolved (yet)

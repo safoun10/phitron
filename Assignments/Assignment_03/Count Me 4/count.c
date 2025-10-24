@@ -17,11 +17,6 @@ int main()
         count[word[i] - 97]++;
     }
 
-    // for (int i = 0; i < 26; i++)
-    // {
-    //     printf("%c .", letters[i]);
-    // }
-
     for (int i = 0; i < 26; i++)
     {
         if (count[i] > 0)
