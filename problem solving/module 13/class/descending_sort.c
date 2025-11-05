@@ -18,14 +18,11 @@ int main()
     {
         for (int j = i + 1; j < limit; j++)
         {
-            if (array[i] + array[j])
+            if (array[i] < array[j])
             {
-                if (array[i] < array[j])
-                {
-                    swap = array[i];
-                    array[i] = array[j];
-                    array[j] = swap;
-                }
+                swap = array[i];
+                array[i] = array[j];
+                array[j] = swap;
             }
         }
     }
