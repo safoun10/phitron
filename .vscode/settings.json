@@ -4,5 +4,8 @@
 		"ostream": "cpp",
 		"sstream": "cpp",
 		"regex": "cpp"
+	},
+	"github.copilot.enable": {
+		"*": false
 	}
 }
