@@ -9,6 +9,9 @@ int main()
     {
         int a;
         cin >> a;
+
+        int array[1001] = {0};
+        array[]
     }
     return 0;
 }
