@@ -11,7 +11,7 @@ int main()
         cin >> a;
 
         int array[1001] = {0};
-        array[]
+        // array[]
     }
     return 0;
 }
