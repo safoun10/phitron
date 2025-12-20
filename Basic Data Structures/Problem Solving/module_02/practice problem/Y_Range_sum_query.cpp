@@ -5,25 +5,40 @@ int main()
 {
     int count, limit;
     cin >> limit >> count;
-    vector<int> v(limit);
+    vector<long long> v(limit);
     for (int t = 0; t < limit; t++) // O(n)
     {
         cin >> v[t];
+        if (t > 0)
+        {
+            v[t] = v[t] + v[t - 1];
+        }
     }
 
-    for (int i = 0; i < count; i++) // O(n)
+    /*
+
+    prefix sum;
+    1. make another identical vector
+    2. create prefix sum .. where:
+
+    - index 0 stays same
+    - index 1 = v[0] + v[1]
+    or
+    - index 1 = v[1] + v[1 - 1]
+    - v[i] = v[i] + v[i - 1]
+    - v[i] += v[i - 1]              // prefix sum
+
+    */
+
+    for (int i = 0; i < count; i++) // O(q)
     {
-        int a, b, sum = 0;
+        long long a, b, sum = 0;
         cin >> a >> b;
-        for (int j = a - 1; j <= b - 1; j++) // O(n)
-        {
-            sum += v[j];
-        }
+        (a == 1) ? sum = v[b - 1] : sum = v[b - 1] - v[a - 2];
         cout << sum << endl;
-    }  // O(n^2)
+    }
 
     return 0;
 }
-
 
 // TLE
