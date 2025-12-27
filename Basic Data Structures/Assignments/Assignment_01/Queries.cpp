@@ -97,13 +97,29 @@ int main()
     Node *head = NULL;
     Node *tail = NULL;
 
-    int val;
-    while ((cin >> val && val != -1))
+    int limit, task, val;
+    cin >> limit;
+    for (int t = 0; t < limit; t++)
     {
-        insert_at_tail(head, tail, val);
+        cin >> task >> val;
+        if (task == 0)
+        {
+            insert_at_head(head, tail, val);
+            print_linked_list(head);
+            cout << endl;
+        }
+        else if (task == 1)
+        {
+            insert_at_tail(head, tail, val);
+            print_linked_list(head);
+            cout << endl;
+        }
+        else
+        {
+            delete_at_any_pos(head, tail, val);
+            print_linked_list(head);
+            cout << endl;
+        }
     }
-
-    print_linked_list(head);
-
     return 0;
 }
