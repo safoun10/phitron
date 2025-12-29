@@ -95,6 +95,15 @@ void print_linked_list(Node *temp)
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
+/*
+how to delete a targeted node
+
+ node_1 _> target_node _> node_2
+
+ node_1.next = node_1.next.next or node_2
+ delete target_node
+*/
+
 void delete_at_any_pos(Node *&head, Node *&tail, int index)
 {
     if (head == NULL || index < 0)
@@ -117,7 +126,7 @@ void delete_at_any_pos(Node *&head, Node *&tail, int index)
     Node *temp = head;
     for (int i = 0; i < index - 1; i++)
     {
-        if (temp == NULL || temp->next == NULL)
+        if (temp->next == NULL)
         {
             return;
         }
@@ -139,6 +148,48 @@ void delete_at_any_pos(Node *&head, Node *&tail, int index)
     delete deletenode;
 }
 
+void delete_tail(Node *&head, Node *&tail)
+{
+    if (head == NULL)
+    {
+        return;
+    }
+
+    if (head == tail)
+    {
+        delete head;
+        head = tail = NULL;
+        return;
+    }
+
+    Node *temp = head;
+    while (temp->next != tail)
+    {
+        temp = temp->next;
+    }
+
+    delete tail;
+    tail = temp;
+    tail->next = NULL;
+}
+
+void delete_next(Node *&head, Node *&tail, Node *&prev)
+{
+    if (prev == NULL || prev->next == NULL)
+    {
+        return;
+    }
+
+    Node *target = prev->next;
+    prev->next = target->next;
+    if (target == tail)
+    {
+        tail = prev;
+    }
+
+    delete target;
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 void sort_linked_list(Node *&head)
@@ -157,6 +208,32 @@ void sort_linked_list(Node *&head)
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
+int Linked_List_length(Node *&head)
+{
+    int count = 0;
+    while (head)
+    {
+        count++;
+        head = head->next;
+    }
+    return count;
+}
+
+Node *find_node_with_val(Node *&head, int val)
+{
+    while (head != NULL)
+    {
+        if (head->val == val)
+        {
+            return head;
+        }
+        head = head->next;
+    }
+    return NULL;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
 int main()
 {
     Node *head = NULL;
@@ -167,8 +244,9 @@ int main()
     {
         insert_at_tail(head, tail, val);
     }
-
     print_linked_list(head);
 
     return 0;
 }
+
+// all linked list snippet

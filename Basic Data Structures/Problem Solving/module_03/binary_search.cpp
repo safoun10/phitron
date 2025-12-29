@@ -35,3 +35,5 @@ int main()
 
     return 0;
 }
+
+// binary search
