@@ -249,4 +249,4 @@ int main()
     return 0;
 }
 
-// all linked list snippet
+// all linked list snippets
