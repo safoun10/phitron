@@ -6,10 +6,12 @@ class Node
 public:
     int val;
     Node *next;
+    Node *prev;
     Node(int val)
     {
         this->val = val;
         this->next = NULL;
+        this->prev = NULL;
     }
 };
 
@@ -24,6 +26,7 @@ void insert_at_head(Node *&head, Node *&tail, int val)
         return;
     }
     newnode->next = head;
+    head->prev = newnode;
     head = newnode;
 }
 
@@ -37,6 +40,7 @@ void insert_at_tail(Node *&head, Node *&tail, int val)
         return;
     }
     tail->next = newnode;
+    newnode->prev = tail;
     tail = newnode;
 }
 
@@ -51,6 +55,10 @@ void insert_at_any_position(Node *&head, Node *&tail, int index, int val)
     if (index == 0)
     {
         newnode->next = head;
+        if (head != NULL)
+        {
+            head->prev = newnode;
+        }
         head = newnode;
         if (tail == NULL)
         {
@@ -69,6 +77,13 @@ void insert_at_any_position(Node *&head, Node *&tail, int index, int val)
         temp = temp->next;
     }
     newnode->next = temp->next;
+    newnode->prev = temp;
+
+    if (temp->next != NULL)
+    {
+        temp->next->prev = newnode;
+    }
+
     temp->next = newnode;
 
     if (newnode->next == NULL)
@@ -80,11 +95,12 @@ void insert_at_any_position(Node *&head, Node *&tail, int index, int val)
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 /*
-how to delete a targeted node
+how to delete a targeted node in a doubly linked list
 
- node_1 _> target_node _> node_2
+ node_1 <-> target_node <-> node_2
 
- node_1.next = node_1.next.next or node_2
+ node_1.next = node_2
+ node_2.prev = node_1
  delete target_node
 */
 
@@ -99,10 +115,16 @@ void delete_at_any_pos(Node *&head, Node *&tail, int index)
     {
         Node *deletenode = head;
         head = head->next;
-        if (head == NULL)
+
+        if (head != NULL)
+        {
+            head->prev = NULL;
+        }
+        else
         {
             tail = NULL;
         }
+
         delete deletenode;
         return;
     }
@@ -124,7 +146,12 @@ void delete_at_any_pos(Node *&head, Node *&tail, int index)
     }
 
     temp->next = deletenode->next;
-    if (deletenode == tail)
+
+    if (deletenode->next != NULL)
+    {
+        deletenode->next->prev = temp;
+    }
+    else
     {
         tail = temp;
     }
@@ -166,7 +193,12 @@ void delete_next(Node *&head, Node *&tail, Node *&prev)
 
     Node *target = prev->next;
     prev->next = target->next;
-    if (target == tail)
+
+    if (target->next != NULL)
+    {
+        target->next->prev = prev;
+    }
+    else
     {
         tail = prev;
     }
@@ -178,6 +210,11 @@ void delete_next(Node *&head, Node *&tail, Node *&prev)
 
 void sort_linked_list(Node *&head)
 {
+    if (head == NULL || head->next == NULL)
+    {
+        return;
+    }
+
     for (Node *i = head; i->next != NULL; i = i->next)
     {
         for (Node *j = i->next; j != NULL; j = j->next)
@@ -192,7 +229,7 @@ void sort_linked_list(Node *&head)
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-int Linked_List_length(Node *&head)
+int Linked_List_length(Node *head)
 {
     int count = 0;
     while (head)
@@ -203,7 +240,7 @@ int Linked_List_length(Node *&head)
     return count;
 }
 
-Node *find_node_with_val(Node *&head, int val)
+Node *find_node_with_val(Node *head, int val)
 {
     while (head != NULL)
     {
@@ -218,35 +255,44 @@ Node *find_node_with_val(Node *&head, int val)
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-void print_linked_list(Node *temp)
+void print_forward(Node *&head)
 {
-    if (temp == NULL)
+    Node *temp = head;
+    while (temp != NULL)
     {
-        return;
+        cout << temp->val << " ";
+        temp = temp->next;
     }
+}
 
-    // shift these both lines up or down for regular or reverse print
-    // cout up in regular, cout down is reverse
-
-    cout << temp->val << " ";
-    print_linked_list(temp->next);
+void print_backward(Node *&tail)
+{
+    Node *temp = tail;
+    while (temp != NULL)
+    {
+        cout << temp->val << " ";
+        temp = temp->prev;
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 int main()
 {
-    Node *head = NULL;
-    Node *tail = NULL;
+    Node *head = NULL, *tail = NULL;
 
     int val;
     while ((cin >> val && val != -1))
     {
         insert_at_tail(head, tail, val);
     }
-    print_linked_list(head);
+    print_forward(head);
+    cout << endl;
+
+    insert_at_any_position(head, tail, 2, 25);
+    print_forward(head);
 
     return 0;
 }
 
-// all singly linked list snippets
+// all doubly linked list snippets
